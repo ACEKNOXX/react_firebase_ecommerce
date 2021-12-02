@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { ProductsContextProvider } from './Global/ProductsContext'
 import { Home } from './Components/Home'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { HashRouter as Router, Switch, Route } from 'react-router-dom'
 import { Signup } from './Components/Signup'
 import { Login } from './Components/Login'
 import { NotFound } from './Components/NotFound'
@@ -10,6 +10,8 @@ import { CartContextProvider } from './Global/CartContext'
 import { Cart } from './Components/Cart'
 import { AddProducts } from './Components/AddProducts'
 import { Cashout } from './Components/Cashout'
+import { Profile } from './Components/Profile'
+import { CashoutInstallmental } from './Components/CashoutInstallmental'
 
 export class App extends Component {
 
@@ -41,10 +43,12 @@ export class App extends Component {
         return (
             <ProductsContextProvider>
                 <CartContextProvider>
-                    <BrowserRouter>
+                    <Router>
                         <Switch>
                             {/* home */}
                             <Route exact path='/' component={() => <Home user={this.state.user} />} />
+                             {/* profile */}
+                             <Route exact path='/profile' component={() => <Profile user={this.state.user} />} />
                             {/* signup */}
                             <Route path="/signup" component={Signup} />
                             {/* login */}
@@ -55,9 +59,12 @@ export class App extends Component {
                             <Route path="/addproducts" component={AddProducts} />
                             {/* cashout */}
                             <Route path='/cashout' component={() => <Cashout user={this.state.user} />} />
+                            {/* cashout installmenntal */}
+                            <Route path='/cashoutInstallmental' component={() => <CashoutInstallmental user={this.state.user} />} />
+
                             <Route component={NotFound} />
                         </Switch>
-                    </BrowserRouter>
+                    </Router>
                 </CartContextProvider>
             </ProductsContextProvider>
         )

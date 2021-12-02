@@ -3,13 +3,17 @@ import { auth, db } from '../Config/Config'
 import { CartContext } from '../Global/CartContext'
 import { Navbar } from './Navbar';
 import { useHistory } from 'react-router-dom'
-import { PaystackButton } from 'react-paystack';
-  
-export const Cashout = (props) => {
+import { Icon } from 'react-icons-kit'
+import { ic_add } from 'react-icons-kit/md/ic_add'
+import { ic_remove } from 'react-icons-kit/md/ic_remove'
+import { iosTrashOutline } from 'react-icons-kit/ionicons/iosTrashOutline'
+
+
+export const CashoutInstallmental = (props) => {
 
     const history = useHistory();
-
-    const {  totalPrice, totalQty, dispatch } = useContext(CartContext);
+    const { shoppingCart, dispatch, totalPrice, totalQty } = useContext(CartContext);
+   
 
     // defining state
     const [name, setName] = useState('');
@@ -20,63 +24,6 @@ export const Cashout = (props) => {
     const [successMsg, setSuccessMsg] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const config = {
-    reference: (new Date()).getTime().toString(),
-    email: email,
-    amount: totalPrice*100,
-    publicKey: 'pk_test_7317e010f981c9020888da3208020c144a69fb7f',
-    };
-    
-    // you can call this function anything
-    const handlePaystackSuccessAction = (reference) => {
-        // Implementation for whatever you want to do with reference and after success call.
-        console.log(reference);
-        setLoading(true);
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                const date = new Date();
-                const time = date.getTime();
-                db.collection('Buyer-info ' + user.uid).doc('_' + time).set({
-                    BuyerName: name,
-                    BuyerEmail: email,
-                    BuyerCell: cell,
-                    BuyerAddress: address,
-                    BuyerPayment: totalPrice,
-                    BuyerQuantity: totalQty,
-                    DateCreated: Date.now(),
-                    BuyerPayOnDelivery:false,
-                    BuyerPaid:true
-                }).then(() => {
-                    setLoading(false);
-                    setCell('');
-                    setAddress('');
-                    dispatch({ type: 'EMPTY' })
-                    setSuccessMsg('Your order has been placed successfully. Thanks for visiting us. You will be redirected to home page after 5 seconds');
-                    setTimeout(() => {
-                        history.push('/')
-                    }, 5000)
-                }).catch(err =>{
-                    setLoading(false);
-                    setError(err.message)
-                })
-            }
-        })
-    };
-  
-    // you can call this function anything
-    const handlePaystackCloseAction = () => {
-        // implementation for  whatever you want to do when the Paystack dialog closed.
-        console.log('closed')
-        alert("Modal closed");
-      }
-  
-    const componentProps = {
-        ...config,
-        text: 'Pay With Paystack',
-        onSuccess: (reference) => handlePaystackSuccessAction(reference),
-        onClose: handlePaystackCloseAction,
-    };
-  
 
     useEffect(() => {
         auth.onAuthStateChanged(user => {
@@ -92,7 +39,7 @@ export const Cashout = (props) => {
         })
     })
 
-    const cashoutSubmit = (e) => {
+    const cashoutInstallmentalSubmit = (e) => {
         setLoading(true);
         e.preventDefault();
         auth.onAuthStateChanged(user => {
@@ -106,8 +53,10 @@ export const Cashout = (props) => {
                     BuyerAddress: address,
                     BuyerPayment: totalPrice,
                     BuyerQuantity: totalQty,
-                    DateCreated: Date.now(),
-                    BuyerPayOnDelivery:true
+                    BuyerInstallmental: true,
+                    BuyerShoppingCart:shoppingCart,
+                    DateCreated: Date.now()
+
                 }).then(() => {
                     setLoading(false);
                     setCell('');
@@ -128,12 +77,50 @@ export const Cashout = (props) => {
     return (
         <>
             <Navbar user={props.user} />
+
             <div className='container'>
                 <br />
-                <h2>Cashout Details</h2>
+                <h2>Cashout Installmental Payment</h2>
                 <br />
+
+
                 {successMsg && <div className='success-msg'>{successMsg}</div>}
-                <form autoComplete="off" className='form-group' onSubmit={cashoutSubmit}>
+                {/*  */}
+                <div className='cart-container'>
+                    {shoppingCart && shoppingCart.map(cart => (
+                        <div className='cart-card' key={cart.ProductID}>
+
+                            <div className='cart-img'>
+                                <img src={cart.ProductImg} alt="not found" />
+                            </div>
+
+                            <div className='cart-name'>{cart.ProductName}</div>
+
+                            <div className='cart-price-orignal'>NGN {cart.ProductPrice}.00</div>
+
+                            <div className='inc' onClick={() => dispatch({ type: 'INC', id: cart.ProductID, cart })}>
+                                <Icon icon={ic_add} size={24} />
+                            </div>
+
+                            <div className='quantity'>{cart.qty}</div>
+
+                            <div className='dec' onClick={() => dispatch({ type: 'DEC', id: cart.ProductID, cart })}>
+                                <Icon icon={ic_remove} size={24} />
+                            </div>
+
+                            <div className='cart-price'>
+                                NGN {cart.TotalProductPrice}.00
+                            </div>
+
+                            <button className='delete-btn' onClick={() => dispatch({ type: 'DELETE', id: cart.ProductID, cart })}>
+                                <Icon icon={iosTrashOutline} size={24} />
+                            </button>
+                        </div>
+                    ))
+                    }
+                </div>
+                {/*  */}
+                <form autoComplete="off" className='form-group' onSubmit={cashoutInstallmentalSubmit}>
                     <label htmlFor="name">Name</label>
                     <input type="text" className='form-control' required
                         value={name} disabled />
@@ -157,11 +144,11 @@ export const Cashout = (props) => {
                     <label htmlFor="Total No of Products">Total No of Products</label>
                     <input type="number" className='form-control' required
                         value={totalQty} disabled />
-                    <br />
-                    <button type="submit" className='btn btn-success btn-md mybtn'>
+
+                    <button type="submit" className='mt-2 btn btn-success btn-md mybtn'>
                         {!loading && 
                             <span>
-                                SUBMIT
+                                Make First Payment on delivery
                             </span>
                         }
                         {loading &&
@@ -170,14 +157,14 @@ export const Cashout = (props) => {
                             </div>
                         }
                     </button>
-                    {/* paystack */}
-                        <div className="PayPaystack mt-2">
-                            <PaystackButton className="btn btn-primary btn-md col-sm-12" {...componentProps} />
-                        </div>
-                    {/* paystack */}
 
                 </form>
+                
                 {error && <span className='error-msg'>{error}</span>}
+                <br />
+                <br />
+                <br />
+
             </div>
         </>
     )

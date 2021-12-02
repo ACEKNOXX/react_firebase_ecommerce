@@ -8,6 +8,7 @@ import { iosTrashOutline } from 'react-icons-kit/ionicons/iosTrashOutline'
 import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import { auth } from '../Config/Config'
+import PayPaystack from './PayWithPayStack';
 
 export const Cart = ({ user }) => {
 
@@ -44,7 +45,7 @@ export const Cart = ({ user }) => {
 
                             <div className='cart-name'>{cart.ProductName}</div>
 
-                            <div className='cart-price-orignal'>Rs {cart.ProductPrice}.00</div>
+                            <div className='cart-price-orignal'>NGN {cart.ProductPrice}.00</div>
 
                             <div className='inc' onClick={() => dispatch({ type: 'INC', id: cart.ProductID, cart })}>
                                 <Icon icon={ic_add} size={24} />
@@ -57,7 +58,7 @@ export const Cart = ({ user }) => {
                             </div>
 
                             <div className='cart-price'>
-                                Rs {cart.TotalProductPrice}.00
+                                NGN {cart.TotalProductPrice}.00
                             </div>
 
                             <button className='delete-btn' onClick={() => dispatch({ type: 'DELETE', id: cart.ProductID, cart })}>
@@ -79,9 +80,14 @@ export const Cart = ({ user }) => {
                             <span>{totalQty}</span>
                         </div>
                         <Link to='cashout' className='cashout-link'>
-                            <button className='btn btn-success btn-md' style={{ marginTop: 5 + 'px' }}>
+                            <button className='btn btn-success btn-md col-sm-12 mb-2' style={{ marginTop: 5 + 'px' }}>
                                 Cash on delivery
-                        </button>
+                            </button>
+                        </Link>
+                        <Link to='cashoutInstallmental' className='cashout-link'>
+                            <button className='btn btn-success btn-md col-sm-12 mb-2' style={{ marginTop: 5 + 'px' }}>
+                                Pay Installmentally
+                            </button>
                         </Link>
                     </div>}
                 </div>

@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { storage, db } from '../Config/Config'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const AddProducts = () => {
 
@@ -7,6 +9,7 @@ export const AddProducts = () => {
     const [productPrice, setProductPrice] = useState(0);
     const [productImg, setProductImg] = useState(null);
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const types = ['image/png', 'image/jpeg']; // image types
 
@@ -24,13 +27,16 @@ export const AddProducts = () => {
 
     // add product
     const addProduct = (e) => {
+        setLoading(true);
         e.preventDefault();
         const uploadTask = storage.ref(`product-images/${productImg.name}`).put(productImg);
         uploadTask.on('state_changed', snapshot => {
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             console.log(progress);
-        }, err => setError(err.message)
-            , () => {
+        }, err =>{
+            setLoading(false);
+            setError(err.message)
+        }, () => {
                 storage.ref('product-images').child(productImg.name).getDownloadURL().then(url => {
                     db.collection('Products').add({
                         ProductName: productName,
@@ -42,7 +48,20 @@ export const AddProducts = () => {
                         setProductImg('');
                         setError('');
                         document.getElementById('file').value = '';
-                    }).catch(err => setError(err.message))
+                        setLoading(false);
+                        toast.info('Product added to database   ', {
+                            position: "top-right",
+                            autoClose: 2000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: false,
+                            draggable: false,
+                            progress: undefined,
+                        });
+                    }).catch(err => {
+                        setLoading(false);
+                        setError(err.message)
+                    })
                 })
             })
     }
@@ -65,7 +84,20 @@ export const AddProducts = () => {
                 <input type="file" className='form-control' id="file" required
                     onChange={productImgHandler} />
                 <br />
-                <button type="submit" className='btn btn-success btn-md mybtn'>ADD</button>
+                <button type="submit" className='btn btn-success btn-md mybtn'>
+                    {!loading && 
+                        <span>
+                            ADD
+                        </span>
+                    }
+                    {loading &&
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    }
+
+                    
+                </button>
             </form>
             {error && <span className='error-msg'>{error}</span>}
         </div>

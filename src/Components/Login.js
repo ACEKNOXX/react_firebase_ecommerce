@@ -7,15 +7,21 @@ export const Login = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+
 
     const login = (e) => {
+        setLoading(true);
         e.preventDefault();
         auth.signInWithEmailAndPassword(email, password).then(() => {
             setEmail('');
             setPassword('');
             setError('');
             props.history.push('/');
-        }).catch(err => setError(err.message));
+        }).catch(err =>{
+            setLoading(false);
+            setError(err.message)
+        });
     }
 
     return (
@@ -32,7 +38,20 @@ export const Login = (props) => {
                 <input type="password" className='form-control' required
                     onChange={(e) => setPassword(e.target.value)} value={password} />
                 <br />
-                <button type="submit" className='btn btn-success btn-md mybtn'>LOGIN</button>
+                <button type="submit" className='btn btn-success btn-md mybtn'>
+                    {!loading && 
+                        <span>
+                            LOGIN
+                        </span>
+                    }
+                    {loading &&
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    }
+
+                    
+                </button>
             </form>
             {error && <span className='error-msg'>{error}</span>}
             <br/>
