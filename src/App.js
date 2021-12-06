@@ -12,6 +12,13 @@ import { AddProducts } from './Components/AddProducts'
 import { Cashout } from './Components/Cashout'
 import { Profile } from './Components/Profile'
 import { CashoutInstallmental } from './Components/CashoutInstallmental'
+import { HomePage } from './Components/HomePage'
+import TermsCondition from './Components/TermsCondition'
+import { ProductCategory } from './Components/ProductCategory'
+import { ProductCategoryOne } from './Components/ProductCategoryOne'
+import { ProductCategoryThree } from './Components/ProductCategoryThree'
+import { ProductCategoryFour } from './Components/ProductCategoryFour'
+import { ProductCategoryTwo } from './Components/ProductCategoryTwo'
 
 export class App extends Component {
 
@@ -47,12 +54,32 @@ export class App extends Component {
                         <Switch>
                             {/* home */}
                             <Route exact path='/' component={() => <Home user={this.state.user} />} />
-                             {/* profile */}
+                            {/* home */}
+                            <Route exact path='/browse' component={() => <HomePage user={this.state.user} />} />
+                            {/* profile */}
                              <Route exact path='/profile' component={() => <Profile user={this.state.user} />} />
+                            {/* product category */}
+                            <Route exact path='/productCategory' component={() => <ProductCategory user={this.state.user} />} />
+                            {/* categories */}
+                            {/* categories */}
+                            {/* categories */}
+                            <Route exact path='/watch' component={() => <ProductCategoryOne user={this.state.user} />} />
+                            <Route exact path='/tv' component={() => <ProductCategoryTwo user={this.state.user} />} />
+                            <Route exact path='/phones' component={() => <ProductCategoryThree user={this.state.user} />} />
+                            <Route exact path='/speaker' component={() => <ProductCategoryFour user={this.state.user} />} />
+
+                            {/* categories */}
+                            {/* categories */}
+                            {/* categories */}
+                            {/* categories */}
+                            
+                            
                             {/* signup */}
                             <Route path="/signup" component={Signup} />
                             {/* login */}
                             <Route path="/login" component={Login} />
+                            {/* terms and condition */}
+                            <Route exact path='/terms' component={() => <TermsCondition user={this.state.user} />} />
                             {/* cart products */}
                             <Route path="/cartproducts" component={() => <Cart user={this.state.user} />} />
                             {/* add products */}

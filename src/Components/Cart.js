@@ -28,7 +28,9 @@ export const Cart = ({ user }) => {
         <>
             <Navbar user={user} />
             <>
-                {shoppingCart.length !== 0 && <h1>Cart</h1>}
+                <div className="text-center">
+                    {shoppingCart.length !== 0 && <h1>Cart</h1>}
+                </div>
                 <div className='cart-container'>
                     {
                         shoppingCart.length === 0 && <>

@@ -34,7 +34,7 @@ export const Profile =  ({ user }) => {
             <div className='wrapper'>
                 <Navbar user={user} />
                 <div className=" row">
-                    <div className="col-sm-12 ">
+                    <div className="col-sm-12  text-center">
                         <h1>Purchase history</h1>
                     </div>
                     

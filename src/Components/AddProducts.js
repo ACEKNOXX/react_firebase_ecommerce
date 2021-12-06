@@ -8,6 +8,7 @@ export const AddProducts = () => {
     const [productName, setProductName] = useState('');
     const [productPrice, setProductPrice] = useState(0);
     const [productImg, setProductImg] = useState(null);
+    const [productCategory, setProductCatergory] = useState(null);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
@@ -41,7 +42,8 @@ export const AddProducts = () => {
                     db.collection('Products').add({
                         ProductName: productName,
                         ProductPrice: Number(productPrice),
-                        ProductImg: url
+                        ProductImg: url,
+                        ProductCategory:productCategory
                     }).then(() => {
                         setProductName('');
                         setProductPrice(0)
@@ -84,6 +86,18 @@ export const AddProducts = () => {
                 <input type="file" className='form-control' id="file" required
                     onChange={productImgHandler} />
                 <br />
+                <select class="form-select" aria-label="Default select example" onChange={(e)=>{
+                    setProductCatergory(e.target.value)
+                }}>
+                    <option selected disabled>Open this select menu</option>
+                    <option value="watches">Watch</option>
+                    <option value="tv">Tv</option>
+                    <option value="phone">Phone</option>
+                    <option value="speaker">Speaker</option>
+                    <option value="others">Others</option>
+                </select>
+                <br/>
+                <br/>
                 <button type="submit" className='btn btn-success btn-md mybtn'>
                     {!loading && 
                         <span>
