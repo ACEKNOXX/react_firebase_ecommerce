@@ -20,18 +20,18 @@ export const HomePageBody = ({ user }) => {
                         <div className="row no-gutters align-items-center ">
                             <div className="col-lg-4 col-md-5">
                                 <div className="slider-product-image d-none d-md-block">
-                                    <img src="assets/images/slider/1.jpg" alt="Slider" />
-                                    <div className="slider-discount-tag">
+                                    <img src="assets/images/banner.jpg" alt="Slider" />
+                                    {/* <div className="slider-discount-tag">
                                         <p>-50% <br/> OFF</p>
-                                    </div>
+                                    </div> */}
                                 </div> 
                                 {/* <!-- slider product image --> */}
                             </div>
                             <div className="col-lg-8 col-md-7">
-                                <div className="slider-product-content">
-                                    <h1 className="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s"><span>Sofa</span> and <span>Armchairs</span></h1>
-                                    <p className="mb-25" data-animation="fadeInUp" data-delay="0.9s">One day however a small line of blind text by the name of Lorem Ipsum <br/> decided to leave for the far World of Grammar.</p>
-                                    <a className="main-btn" href="#" data-animation="fadeInUp" data-delay="1.5s">Explore More <i className="lni-chevron-right"></i></a>
+                                <div className="slider-product-content">    
+                                    <h1 className="slider-title mb-10" data-animation="fadeInUp" data-delay="0.3s"><span>Trending</span> <span>Items</span></h1>
+                                    {/* <p className="mb-25" data-animation="fadeInUp" data-delay="0.9s">One day however a small line of blind text by the name of Lorem Ipsum <br/> decided to leave for the far World of Grammar.</p> */}
+                                    <Link className="main-btn" to="/productCategory" data-animation="fadeInUp" data-delay="1.5s">Explore More <i className="lni-chevron-right"></i></Link>
                                 </div> 
                                 {/* <!-- slider product content --> */}
                             </div>
@@ -70,12 +70,14 @@ export const HomePageBody = ({ user }) => {
                 <div className="col-lg-6">
                     <div className="single-discount-product mt-30">
                         <div className="product-image">
-                            <img src="assets/images/discount-product/product-1.jpg" alt="Product" />
+                            {/* <img src="assets/images/discount-product/product-1.jpg" alt="Product" /> */}
+                            <img height="350px" src="https://images.unsplash.com/photo-1623998021446-45cd9b269056?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2358&q=80" alt="Product" />
+
                         </div> 
                         {/* <!-- product image --> */}
                         <div className="product-content">
-                            <h4 className="content-title mb-15">High-quality furnitures <br/> For your home</h4>
-                            <a href="#">View Collection <i className="lni-chevron-right"></i></a>
+                            <h4 className="content-title mb-15">High-quality Wrist watch <br/> </h4>
+                            <Link to="/watch">View Collection <i className="lni-chevron-right"></i></Link>
                         </div> 
                         {/* <!-- product content --> */}
                     </div> 
@@ -84,12 +86,14 @@ export const HomePageBody = ({ user }) => {
                 <div className="col-lg-6">
                     <div className="single-discount-product mt-30">
                         <div className="product-image">
-                            <img src="assets/images/discount-product/product-2.jpg" alt="Product" />
+                            {/* <img src="assets/images/discount-product/product-2.jpg" alt="Product" /> */}
+                            <img height="350px" src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3344&q=80" alt="Product" />
+
                         </div> 
                         {/* <!-- product image --> */}
                         <div className="product-content">
                             <h4 className="content-title mb-15">Hot Offer <br/> Discount up to 80%</h4>
-                            <a href="#">View Collection <i className="lni-chevron-right"></i></a>
+                            <Link to="/productCategory">View Collection <i className="lni-chevron-right"></i></Link>
                         </div> 
                         {/* <!-- product content --> */}
                     </div> 
@@ -115,7 +119,8 @@ export const HomePageBody = ({ user }) => {
         <div className="container">
             <div className="footer-widget pt-75 pb-120">
                 <div className="row">
-                    <div className="col-lg-3 col-md-5 col-sm-7">
+                  
+                    <div className="col-lg-4 col-md-4 col-sm-12">
                         <div className="footer-logo mt-40">
                             <a href="#">
                                 <img src="assets/images/yct.png" width="50px" alt="Logo" />
@@ -129,17 +134,16 @@ export const HomePageBody = ({ user }) => {
                         </div> 
                         {/* <!-- footer logo --> */}
                     </div>
-                    <div className="col-lg-3 col-md-4 col-sm-5">
+                    {/* <div className="col-lg-3 col-md-4 col-sm-5">
                         <div className="footer-link mt-50">
                             <h5 className="f-title">Services</h5>
                             <ul>
-                                <li><a href="#">Lighting Design</a></li>
+                                <li><a href="#">Inszt</a></li>
                                 <li><a href="#">Poster Design</a></li>
                             </ul>
                         </div> 
-                        {/* <!-- footer link --> */}
-                    </div>
-                    <div className="col-lg-2 col-md-3 col-sm-5">
+                    </div> */}
+                    <div className="col-lg-4 col-md-4 col-sm-12">
                         <div className="footer-link mt-50">
                             <h5 className="f-title">Help</h5>
                             <ul>
@@ -154,7 +158,7 @@ export const HomePageBody = ({ user }) => {
                         </div> 
                         {/* <!-- footer link --> */}
                     </div>
-                    <div className="col-lg-4 col-md-5 col-sm-7">
+                    <div className="col-lg-4 col-md-4 col-sm-12">
                         <div className="footer-info mt-50">
                             <h5 className="f-title">Contact Info</h5>
                             <ul>
@@ -177,7 +181,6 @@ export const HomePageBody = ({ user }) => {
                                     {/* <!-- single footer info --> */}
                                 </li>
                                 <li>
-                                    <span>We also accept</span>
                                     <img src="assets/images/visa.png" width="80px" alt="Logo" />
                                 </li>
                                 

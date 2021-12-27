@@ -91,6 +91,7 @@ export const Cashout = (props) => {
             }
         })
     })
+    
 
     const cashoutSubmit = (e) => {
         setLoading(true);
@@ -107,6 +108,7 @@ export const Cashout = (props) => {
                     BuyerPayment: totalPrice,
                     BuyerQuantity: totalQty,
                     DateCreated: Date.now(),
+                    BuyerDriverLincense:"",
                     BuyerPayOnDelivery:true
                 }).then(() => {
                     setLoading(false);
@@ -158,10 +160,13 @@ export const Cashout = (props) => {
                     <input type="number" className='form-control' required
                         value={totalQty} disabled />
                     <br />
-                    <button type="submit" className='btn btn-success btn-md mybtn'>
+                    
+                    <button type="submit" className='btn btn-success btn-md mybtn'
+                    style={{width:"200px"}}
+                    >
                         {!loading && 
                             <span>
-                                SUBMIT
+                                Submit
                             </span>
                         }
                         {loading &&
@@ -171,7 +176,7 @@ export const Cashout = (props) => {
                         }
                     </button>
                     {/* paystack */}
-                        <div className="PayPaystack mt-2">
+                        <div className="PayPaystack mt-2 " style={{width:"200px"}}>
                             <PaystackButton className="btn btn-primary btn-md col-sm-12" {...componentProps} />
                         </div>
                     {/* paystack */}

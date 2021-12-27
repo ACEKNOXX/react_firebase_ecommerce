@@ -18,7 +18,14 @@ export default function     PurchaseHistoryTab(props) {
                         <li class="list-group-item">Recipeint PhoneNo:{data.BuyerCell}</li>
                         <li class="list-group-item">Recipeint Email:{data.BuyerEmail}</li>
                         <li class="list-group-item">Quantity:{data.BuyerQuantity}</li>
-                        
+                        {data.BuyerInstallmental &&
+                            <li class="list-group-item">Valid Id:</li>
+                    
+                        }
+                        {data.BuyerDriverLincense &&
+                            <img src={data.BuyerDriverLincense} width="300px" height="300px" alt=""/>
+                        }
+
                     </ul>
                     {data.BuyerInstallmental &&
                         <a href="#" className="btn btn-primary">Pay next installment</a>

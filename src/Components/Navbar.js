@@ -75,6 +75,8 @@ export const Navbar = ({ user }) => {
                                         <div className='rightside'>
                                             <span><Link to="signup" className='navlink text-dark' style={{marginLeft:"5px",marginRight:"5px"}}>SIGN UP</Link></span>
                                             <span><Link to="login" className='navlink text-dark' style={{marginLeft:"5px",marginRight:"5px"}}>LOGIN</Link></span>
+                                            <span><Link to="cartproducts" className='navlink text-dark' style={{marginLeft:"5px",marginRight:"5px"}}><Icon icon={cart} /></Link></span>
+                                            <span className='no-of-products text-dark' style={{marginLeft:"5px",marginRight:"5px"}}>{totalQty}</span>
                                         </div>
                                     }
                                     {user && <div className='rightside'>
