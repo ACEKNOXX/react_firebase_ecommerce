@@ -58,9 +58,17 @@ export const CashoutInstallmental = (props) => {
         e.preventDefault();
         
     }
+    function addDays(date, days) {
+        var result = new Date(date);
+        result.setDate(date.getDate() + days);
+        return result;
+    }
+    
     const cashoutInstallmentalSubmit = (e) => {
         setLoading(true);
         e.preventDefault();
+        const date = new Date();
+        var r=date.setDate(date.getDate() + 20);
         auth.onAuthStateChanged(user => {
             if (user) {
 
@@ -88,8 +96,8 @@ export const CashoutInstallmental = (props) => {
                             BuyerInstallmental: true,
                             BuyerShoppingCart:shoppingCart,
                             BuyerDriverLincense:url,
-                            DateCreated: Date.now()
-
+                            DateCreated: Date.now(),
+                            nextPaymentDay:r
                         }).then(() => {
                             setLoading(false);
                             setCell('');
@@ -127,7 +135,7 @@ export const CashoutInstallmental = (props) => {
                         <div className='cart-card' key={cart.ProductID}>
 
                             <div className='cart-img'>
-                                <img src={cart.driverLicense} alt="not found" />
+                                <img src={cart.ProductImg} alt="not found" />
                             </div>
 
                             <div className='cart-name'>{cart.ProductName}</div>
